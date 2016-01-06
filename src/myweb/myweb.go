@@ -13,16 +13,20 @@ func main() {
 	fs := http.FileServer(http.Dir("static"))
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
 
+	http.HandleFunc("/", redirect)
 	http.HandleFunc("/home", serveTemplate)
 	http.HandleFunc("/robots.txt", handler)
 	http.HandleFunc("/error", error_handler)
 	http.ListenAndServe(":3000", nil)
 }
 
+func redirect(w http.ResponseWriter, r *http.Request) {
+	http.Redirect(w, r, "/home", 301)
+}
+
 func error_handler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Ooops... something looks wrong :(")
 }
-
 
 func handler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "User-agent: *\nDisallow: /")
