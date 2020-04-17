@@ -82,3 +82,8 @@ func getToken() string {
 
 	return otp
 }
+
+
+func GetToken(secret string,interval int64) string{
+	return getHOTPToken(secret, interval)
+}
