@@ -17,7 +17,7 @@ func main() {
 	http.HandleFunc("/home", serveTemplate)
 	http.HandleFunc("/robots.txt", handler)
 	http.HandleFunc("/error", error_handler)
-	http.ListenAndServe(":3000", nil)
+	http.ListenAndServe(":80", nil)
 }
 
 func redirect(w http.ResponseWriter, r *http.Request) {
